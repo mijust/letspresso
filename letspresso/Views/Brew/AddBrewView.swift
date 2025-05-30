@@ -22,7 +22,7 @@ struct AddBrewView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.warmWhite.ignoresSafeArea()
+                CoffeeTheme.primaryBackground.ignoresSafeArea() // Hintergrund
                 
                 Form {
                     Section {
@@ -31,7 +31,7 @@ struct AddBrewView: View {
                             value: $coffeeWeight,
                             unit: "g",
                             icon: "leaf.fill",
-                            color: .beanGreen
+                            color: .accentGreen // Akzentfarbe
                         )
                         
                         ParameterRow(
@@ -39,7 +39,7 @@ struct AddBrewView: View {
                             value: $waterWeight,
                             unit: "g",
                             icon: "drop.fill",
-                            color: .blue.opacity(0.7)
+                            color: .accentBlue // Akzentfarbe
                         )
                         
                         ParameterRow(
@@ -47,13 +47,13 @@ struct AddBrewView: View {
                             value: $waterTemperature,
                             unit: "°C",
                             icon: "thermometer",
-                            color: .warningOrange
+                            color: CoffeeTheme.warning // Akzentfarbe
                         )
                         
                         // Grind Size Picker
                         HStack {
                             Image(systemName: "gearshape.fill")
-                                .foregroundColor(.coffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                                 .frame(width: 20)
                             Picker("Mahlgrad", selection: $grindSize) {
                                 ForEach(GrindSize.allCases, id: \.self) { size in
@@ -64,17 +64,17 @@ struct AddBrewView: View {
                         
                     } header: {
                         Text("Parameter")
-                            .foregroundColor(.coffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
-                    .listRowBackground(Color.creamBackground)
+                    .listRowBackground(CoffeeTheme.cardBackground) // Kartenhintergrund
                     
                     Section {
                         HStack {
                             Image(systemName: "star.fill")
-                                .foregroundColor(.ratingGold)
+                                .foregroundColor(CoffeeTheme.accent) // Akzentfarbe
                                 .frame(width: 20)
                             Text("Gesamt")
-                                .foregroundColor(.darkCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                             Spacer()
                             Picker("Gesamt", selection: $rating) {
                                 ForEach(1...5, id: \.self) { value in
@@ -89,35 +89,35 @@ struct AddBrewView: View {
                         }
                     } header: {
                         Text("Bewertung")
-                            .foregroundColor(.coffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
-                    .listRowBackground(Color.creamBackground)
+                    .listRowBackground(CoffeeTheme.cardBackground) // Kartenhintergrund
                 }
                 .scrollContentBackground(.hidden)
-                .background(Color.warmWhite)
+                .background(CoffeeTheme.primaryBackground) // Hintergrund
             }
             .navigationTitle("Neue \(method.rawValue)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(Color.coffeeBrown, for: .navigationBar)
+            .toolbarBackground(CoffeeTheme.primaryButton, for: .navigationBar) // Toolbar-Hintergrund
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Abbrechen") {
                         dismiss()
                     }
-                    .foregroundColor(.warmWhite)
+                    .foregroundColor(CoffeeTheme.primaryButtonText) // Toolbar-Textfarbe
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Speichern") {
                         saveBasicBrew()
                     }
-                    .foregroundColor(.warmWhite)
+                    .foregroundColor(CoffeeTheme.primaryButtonText) // Toolbar-Textfarbe
                     .fontWeight(.semibold)
                 }
             }
         }
-        .accentColor(.coffeeBrown)
+        .accentColor(CoffeeTheme.primaryButton) // Akzentfarbe der Navigation
     }
     
     private func saveBasicBrew() {
@@ -156,15 +156,15 @@ struct ParameterRow: View {
                 .foregroundColor(color)
                 .frame(width: 20)
             Text(label)
-                .foregroundColor(.darkCoffeeBrown)
+                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
             Spacer()
             TextField("Wert", value: $value, format: .number)
                 .multilineTextAlignment(.trailing)
                 .keyboardType(.decimalPad)
-                .foregroundColor(.coffeeBrown)
+                .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                 .fontWeight(.medium)
             Text(unit)
-                .foregroundColor(.coffeeBrown)
+                .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                 .font(.caption)
         }
     }

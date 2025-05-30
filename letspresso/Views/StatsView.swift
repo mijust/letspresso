@@ -15,25 +15,25 @@ struct StatsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.warmWhite.ignoresSafeArea()
+                CoffeeTheme.primaryBackground.ignoresSafeArea() // Hintergrund
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         // Übersicht
                         StatsGroupBox(title: "Übersicht", icon: "chart.bar.fill") {
                             VStack(spacing: 12) {
-                                StatRow(label: "Gesamte Brühungen", value: "\(brews.count)", color: .coffeeBrown)
-                                StatRow(label: "Verschiedene Bohnen", value: "\(beans.count)", color: .beanGreen)
-                                StatRow(label: "Lieblings-Methode", value: favoriteMethod, color: .espressoGold)
+                                StatRow(label: "Gesamte Brühungen", value: "\(brews.count)", color: Color.mediumBrown) // Angepasst
+                                StatRow(label: "Verschiedene Bohnen", value: "\(beans.count)", color: Color.accentGreen) // Angepasst
+                                StatRow(label: "Lieblings-Methode", value: favoriteMethod, color: CoffeeTheme.accent) // Angepasst
                             }
                         }
                         
                         // Durchschnittswerte
                         StatsGroupBox(title: "Durchschnitte", icon: "target") {
                             VStack(spacing: 12) {
-                                StatRow(label: "Bewertung", value: String(format: "%.1f ⭐", averageRating), color: .ratingGold)
-                                StatRow(label: "Espresso Ratio", value: String(format: "1:%.1f", averageEspressoRatio), color: .lightCoffeeBrown)
-                                StatRow(label: "Kaffee pro Brühung", value: String(format: "%.1fg", averageCoffeePerBrew), color: .darkCoffeeBrown)
+                                StatRow(label: "Bewertung", value: String(format: "%.1f ⭐", averageRating), color: CoffeeTheme.accent) // Angepasst
+                                StatRow(label: "Espresso Ratio", value: String(format: "1:%.1f", averageEspressoRatio), color: Color.lightBrown) // Angepasst
+                                StatRow(label: "Durchschnittl. Kaffee pro Brühung", value: String(format: "%.1fg", averageCoffeePerBrew), color: CoffeeTheme.primaryText) // Angepasst
                             }
                         }
                     }
@@ -42,29 +42,34 @@ struct StatsView: View {
             }
             .navigationTitle("Statistiken")
             .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(Color.coffeeBrown, for: .navigationBar)
+            .toolbarBackground(CoffeeTheme.primaryButton, for: .navigationBar) // Toolbar-Hintergrund
             .toolbarBackground(.visible, for: .navigationBar)
         }
     }
     
-    var favoriteMethod: String {
-        let methodCounts = Dictionary(grouping: brews, by: { $0.method })
-            .mapValues { $0.count }
-        return methodCounts.max(by: { $0.value < $1.value })?.key.rawValue ?? "N/A"
-    }
-    
-    var averageRating: Double {
+    private var averageRating: Double {
         guard !brews.isEmpty else { return 0 }
         return Double(brews.reduce(0) { $0 + $1.rating }) / Double(brews.count)
     }
     
-    var averageEspressoRatio: Double {
-        let espressoBrews = brews.filter { $0.method == .espresso }
+    private var favoriteMethod: String {
+        guard !brews.isEmpty else { return "N/A" }
+        let methodCounts = Dictionary(grouping: brews, by: { $0.method })
+            .mapValues { $0.count }
+        
+        if let (method, _) = methodCounts.max(by: { $0.value < $1.value }) {
+            return method.rawValue
+        }
+        return "N/A"
+    }
+    
+    private var averageEspressoRatio: Double {
+        let espressoBrews = brews.filter { $0.method == .espresso && $0.yieldWeight != nil }
         guard !espressoBrews.isEmpty else { return 0 }
         return espressoBrews.reduce(0) { $0 + $1.ratio } / Double(espressoBrews.count)
     }
     
-    var averageCoffeePerBrew: Double {
+    private var averageCoffeePerBrew: Double {
         guard !brews.isEmpty else { return 0 }
         return brews.reduce(0) { $0 + $1.coffeeWeight } / Double(brews.count)
     }
@@ -85,18 +90,18 @@ struct StatsGroupBox<Content: View>: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: icon)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Angepasst
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.darkCoffeeBrown)
+                    .foregroundColor(CoffeeTheme.primaryText) // Angepasst
             }
             
             content
         }
         .padding(16)
-        .background(Color.creamBackground)
+        .background(CoffeeTheme.cardBackground) // Angepasst
         .cornerRadius(12)
-        .shadow(color: .coffeeBrown.opacity(0.1), radius: 4, x: 0, y: 2)
+        .shadow(color: CoffeeTheme.primaryButton.opacity(0.1), radius: 4, x: 0, y: 2) // Angepasst
     }
 }
 
@@ -112,12 +117,12 @@ struct StatRow: View {
                     .fill(color)
                     .frame(width: 8, height: 8)
                 Text(label)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Angepasst
             }
             Spacer()
             Text(value)
                 .fontWeight(.medium)
-                .foregroundColor(.darkCoffeeBrown)
+                .foregroundColor(CoffeeTheme.primaryText) // Angepasst
         }
     }
 }

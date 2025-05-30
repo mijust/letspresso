@@ -13,44 +13,44 @@ struct BeanDetailView: View {
     
     var body: some View {
         ZStack {
-            Color.warmWhite.ignoresSafeArea() //
+            CoffeeTheme.primaryBackground.ignoresSafeArea() // Hintergrund
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     // Basic Information
-                    BrewDetailGroupBox(title: "Basis Informationen", icon: "info.circle.fill") { //
+                    BrewDetailGroupBox(title: "Basis Informationen", icon: "info.circle.fill") {
                         VStack(spacing: 12) {
-                            DetailRow(label: "Name", value: bean.name) //
-                            DetailRow(label: "Röster", value: bean.roaster) //
-                            DetailRow(label: "Herkunft", value: bean.origin) //
-                            DetailRow(label: "Röstgrad", value: bean.roastLevel.rawValue) //
-                            DetailRow(label: "Preis pro kg", value: String(format: "%.2f €", bean.pricePerKg)) //
+                            DetailRow(label: "Name", value: bean.name)
+                            DetailRow(label: "Röster", value: bean.roaster)
+                            DetailRow(label: "Herkunft", value: bean.origin)
+                            DetailRow(label: "Röstgrad", value: bean.roastLevel.rawValue)
+                            DetailRow(label: "Preis pro kg", value: String(format: "%.2f €", bean.pricePerKg))
                         }
                     }
                     
                     // Roast Date
-                    BrewDetailGroupBox(title: "Röstdatum", icon: "calendar") { //
+                    BrewDetailGroupBox(title: "Röstdatum", icon: "calendar") {
                         VStack(spacing: 12) {
                             if let roastDate = bean.roastDate {
-                                DetailRow(label: "Datum", value: roastDate.formatted(date: .abbreviated, time: .omitted)) //
+                                DetailRow(label: "Datum", value: roastDate.formatted(date: .abbreviated, time: .omitted))
                             } else {
                                 Text("Nicht bekannt")
-                                    .foregroundColor(.coffeeBrown) //
+                                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
                     }
                     
                     // Rating
-                    BrewDetailGroupBox(title: "Bewertung", icon: "star.fill") { //
-                        RatingRow(label: "Gesamt", value: bean.rating) //
+                    BrewDetailGroupBox(title: "Bewertung", icon: "star.fill") {
+                        RatingRow(label: "Gesamt", value: bean.rating)
                     }
                     
                     // Notes
                     if !bean.notes.isEmpty {
-                        BrewDetailGroupBox(title: "Notizen", icon: "note.text") { //
+                        BrewDetailGroupBox(title: "Notizen", icon: "note.text") {
                             Text(bean.notes)
-                                .foregroundColor(.darkCoffeeBrown) //
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
@@ -61,7 +61,7 @@ struct BeanDetailView: View {
         .navigationTitle(bean.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(Color.coffeeBrown, for: .navigationBar) //
+        .toolbarBackground(CoffeeTheme.primaryButton, for: .navigationBar) // Toolbar-Hintergrund
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }

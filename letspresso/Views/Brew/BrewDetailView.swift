@@ -13,7 +13,7 @@ struct BrewDetailView: View {
     
     var body: some View {
         ZStack {
-            Color.warmWhite.ignoresSafeArea()
+            CoffeeTheme.primaryBackground.ignoresSafeArea() // Hintergrund
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
@@ -23,10 +23,10 @@ struct BrewDetailView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(bean.name)
                                     .font(.headline)
-                                    .foregroundColor(.darkCoffeeBrown)
+                                    .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                                 Text("\(bean.roaster) - \(bean.origin)")
                                     .font(.subheadline)
-                                    .foregroundColor(.coffeeBrown)
+                                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -69,7 +69,7 @@ struct BrewDetailView: View {
                     if !brew.tastingNotes.isEmpty {
                         BrewDetailGroupBox(title: "Verkostungsnotizen", icon: "note.text") {
                             Text(brew.tastingNotes)
-                                .foregroundColor(.darkCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
@@ -80,7 +80,7 @@ struct BrewDetailView: View {
         .navigationTitle(brew.date.formatted(date: .abbreviated, time: .shortened))
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(Color.coffeeBrown, for: .navigationBar)
+        .toolbarBackground(CoffeeTheme.primaryButton, for: .navigationBar) // Toolbar-Hintergrund
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }
@@ -102,18 +102,18 @@ struct BrewDetailGroupBox<Content: View>: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: icon)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe für Icons
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.darkCoffeeBrown)
+                    .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
             }
             
             content
         }
         .padding(16)
-        .background(Color.creamBackground)
+        .background(CoffeeTheme.cardBackground) // Kartenhintergrund
         .cornerRadius(12)
-        .shadow(color: .coffeeBrown.opacity(0.1), radius: 4, x: 0, y: 2)
+        .shadow(color: CoffeeTheme.primaryButton.opacity(0.1), radius: 4, x: 0, y: 2) // Schattenfarbe
     }
 }
 
@@ -125,15 +125,15 @@ struct DetailRow: View {
         HStack {
             HStack {
                 Circle()
-                    .fill(Color.lightCoffeeBrown)
+                    .fill(CoffeeTheme.secondaryButton) // Füllfarbe des Kreises
                     .frame(width: 6, height: 6)
                 Text(label)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
             }
             Spacer()
             Text(value)
                 .fontWeight(.medium)
-                .foregroundColor(.darkCoffeeBrown)
+                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
         }
     }
 }
@@ -146,17 +146,17 @@ struct RatingRow: View {
         HStack {
             HStack {
                 Circle()
-                    .fill(Color.ratingGold)
+                    .fill(CoffeeTheme.accent) // Füllfarbe des Kreises
                     .frame(width: 6, height: 6)
                 Text(label)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
             }
             Spacer()
             HStack(spacing: 4) {
                 ForEach(0..<5) { index in
                     Image(systemName: index < value ? "star.fill" : "star")
                         .font(.caption)
-                        .foregroundColor(.ratingGold)
+                        .foregroundColor(CoffeeTheme.accent) // Akzentfarbe für Sterne
                 }
             }
         }

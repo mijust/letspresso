@@ -37,7 +37,7 @@ struct ContentView: View {
                 }
                 .tag(3)
         }
-        .accentColor(.coffeeBrown) // Tab-Auswahl Farbe
-        .background(Color.warmWhite)
+        .accentColor(CoffeeTheme.primaryButton) // Tab-Auswahl Farbe
+        .background(CoffeeTheme.primaryBackground) // Hintergrundfarbe der Tab-Ansicht
     }
 }

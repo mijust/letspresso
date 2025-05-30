@@ -17,23 +17,23 @@ struct BrewsListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.warmWhite.ignoresSafeArea()
+                CoffeeTheme.primaryBackground.ignoresSafeArea() // Hintergrund
                 
                 List {
                     ForEach(brews) { brew in
                         NavigationLink(destination: BrewDetailView(brew: brew)) {
                             BrewRowView(brew: brew)
                         }
-                        .listRowBackground(Color.creamBackground)
+                        .listRowBackground(CoffeeTheme.cardBackground) // Listenreihen-Hintergrund
                     }
                     .onDelete(perform: deleteBrews)
                 }
                 .scrollContentBackground(.hidden)
-                .background(Color.warmWhite)
+                .background(CoffeeTheme.primaryBackground) // Hintergrund
             }
             .navigationTitle("Brühungen")
             .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(Color.coffeeBrown, for: .navigationBar)
+            .toolbarBackground(CoffeeTheme.primaryButton, for: .navigationBar) // Toolbar-Hintergrund
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -46,7 +46,7 @@ struct BrewsListView: View {
                         }
                     } label: {
                         Image(systemName: "plus")
-                            .foregroundColor(.warmWhite)
+                            .foregroundColor(CoffeeTheme.primaryButtonText) // Toolbar-Textfarbe
                     }
                 }
             }
@@ -72,26 +72,26 @@ struct BrewRowView: View {
                 // Methode mit Icon
                 HStack(spacing: 6) {
                     Image(systemName: methodIcon(for: brew.method))
-                        .foregroundColor(.coffeeBrown)
+                        .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe für Icons
                         .font(.caption)
                     Text(brew.method.rawValue)
                         .font(.headline)
-                        .foregroundColor(.darkCoffeeBrown)
+                        .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                 }
                 Spacer()
                 Text(brew.date, style: .date)
                     .font(.caption)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(Color.lightCoffeeBrown.opacity(0.1))
+                    .background(CoffeeTheme.secondaryButton.opacity(0.1)) // Hintergrundfarbe
                     .cornerRadius(6)
             }
             
             if let bean = brew.coffeeBean {
                 Text("\(bean.name) - \(bean.roaster)")
                     .font(.subheadline)
-                    .foregroundColor(.coffeeBrown)
+                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
             }
             
             HStack {
@@ -99,16 +99,16 @@ struct BrewRowView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "scalemass")
                         .font(.caption2)
-                        .foregroundColor(.beanGreen)
+                        .foregroundColor(Color.accentGreen) // Akzentfarbe
                     
                     if brew.method == .espresso {
                         Text(String(format: "%.1fg → %.1fg", brew.coffeeWeight, brew.yieldWeight ?? 0))
                             .font(.caption)
-                            .foregroundColor(.darkCoffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     } else {
                         Text(String(format: "%.1fg : %.0fg", brew.coffeeWeight, brew.waterWeight))
                             .font(.caption)
-                            .foregroundColor(.darkCoffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
                 }
                 
@@ -119,7 +119,7 @@ struct BrewRowView: View {
                     ForEach(0..<5) { index in
                         Image(systemName: index < brew.rating ? "star.fill" : "star")
                             .font(.caption2)
-                            .foregroundColor(.ratingGold)
+                            .foregroundColor(CoffeeTheme.accent) // Akzentfarbe für Sterne
                     }
                 }
             }

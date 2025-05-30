@@ -33,7 +33,7 @@ struct AddBeanView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.warmWhite.ignoresSafeArea()
+                CoffeeTheme.primaryBackground.ignoresSafeArea() // Hintergrund
                 
                 Form {
                     Section {
@@ -41,27 +41,27 @@ struct AddBeanView: View {
                             icon: "textformat",
                             label: "Name",
                             text: $name,
-                            color: .darkCoffeeBrown
+                            color: CoffeeTheme.primaryText // Primäre Textfarbe
                         )
                         
                         BeanInputRow(
                             icon: "building.2",
                             label: "Röster",
                             text: $roaster,
-                            color: .coffeeBrown
+                            color: CoffeeTheme.secondaryText // Sekundäre Textfarbe
                         )
                         
                         BeanInputRow(
                             icon: "globe",
                             label: "Herkunft",
                             text: $origin,
-                            color: .beanGreen
+                            color: Color.accentGreen // Akzentfarbe
                         )
                         
                         // Roast Level Picker
                         HStack {
                             Image(systemName: "flame.fill")
-                                .foregroundColor(.warningOrange)
+                                .foregroundColor(CoffeeTheme.warning) // Warnfarbe
                                 .frame(width: 20)
                             Picker("Röstgrad", selection: $roastLevel) {
                                 ForEach(RoastLevel.allCases, id: \.self) { level in
@@ -73,31 +73,31 @@ struct AddBeanView: View {
                         // Price Row
                         HStack {
                             Image(systemName: "eurosign.circle.fill")
-                                .foregroundColor(.espressoGold)
+                                .foregroundColor(CoffeeTheme.accent) // Akzentfarbe
                                 .frame(width: 20)
                             Text("Preis pro kg")
-                                .foregroundColor(.darkCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                             Spacer()
                             TextField("Preis", value: $pricePerKg, format: .currency(code: "EUR"))
                                 .multilineTextAlignment(.trailing)
                                 .keyboardType(.decimalPad)
-                                .foregroundColor(.coffeeBrown)
+                                .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                                 .fontWeight(.medium)
                         }
                         
                     } header: {
                         Text("Basis Informationen")
-                            .foregroundColor(.coffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
-                    .listRowBackground(Color.creamBackground)
+                    .listRowBackground(CoffeeTheme.cardBackground) // Kartenhintergrund
                     
                     Section {
                         HStack {
                             Image(systemName: "star.fill")
-                                .foregroundColor(.ratingGold)
+                                .foregroundColor(CoffeeTheme.accent) // Akzentfarbe
                                 .frame(width: 20)
                             Text("Bewertung")
-                                .foregroundColor(.darkCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                             Spacer()
                             Picker("Bewertung", selection: $rating) {
                                 ForEach(1...5, id: \.self) { value in
@@ -112,64 +112,64 @@ struct AddBeanView: View {
                         }
                     } header: {
                         Text("Bewertung")
-                            .foregroundColor(.coffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
-                    .listRowBackground(Color.creamBackground)
+                    .listRowBackground(CoffeeTheme.cardBackground) // Kartenhintergrund
                     
                     Section {
                         HStack {
                             Image(systemName: "calendar")
-                                .foregroundColor(.lightCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                                 .frame(width: 20)
                             Toggle("Röstdatum bekannt", isOn: $hasRoastDate)
-                                .foregroundColor(.darkCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                         }
                         
                         if hasRoastDate {
                             HStack {
                                 Image(systemName: "calendar.badge.clock")
-                                    .foregroundColor(.lightCoffeeBrown)
+                                    .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                                     .frame(width: 20)
                                 DatePicker("Röstdatum", selection: $roastDate, displayedComponents: .date)
-                                    .foregroundColor(.darkCoffeeBrown)
+                                    .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                             }
                         }
                     } header: {
                         Text("Röstdatum")
-                            .foregroundColor(.coffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
-                    .listRowBackground(Color.creamBackground)
+                    .listRowBackground(CoffeeTheme.cardBackground) // Kartenhintergrund
                     
                     Section {
                         HStack(alignment: .top) {
                             Image(systemName: "note.text")
-                                .foregroundColor(.coffeeBrown)
+                                .foregroundColor(CoffeeTheme.secondaryText) // Sekundäre Textfarbe
                                 .frame(width: 20)
                                 .padding(.top, 8)
                             TextEditor(text: $notes)
                                 .frame(minHeight: 100)
-                                .foregroundColor(.darkCoffeeBrown)
+                                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                         }
                     } header: {
                         Text("Notizen")
-                            .foregroundColor(.coffeeBrown)
+                            .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
                     }
-                    .listRowBackground(Color.creamBackground)
+                    .listRowBackground(CoffeeTheme.cardBackground) // Kartenhintergrund
                 }
                 .scrollContentBackground(.hidden)
-                .background(Color.warmWhite)
+                .background(CoffeeTheme.primaryBackground) // Hintergrund
             }
             .navigationTitle("Neue Bohne")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(Color.coffeeBrown, for: .navigationBar)
+            .toolbarBackground(CoffeeTheme.primaryButton, for: .navigationBar) // Toolbar-Hintergrund
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Abbrechen") { 
-                        dismiss() 
+                    Button("Abbrechen") {
+                        dismiss()
                     }
-                    .foregroundColor(.warmWhite)
+                    .foregroundColor(CoffeeTheme.primaryButtonText) // Toolbar-Textfarbe
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Speichern") {
@@ -187,12 +187,12 @@ struct AddBeanView: View {
                         dismiss()
                     }
                     .disabled(name.isEmpty || roaster.isEmpty)
-                    .foregroundColor(.warmWhite)
+                    .foregroundColor(CoffeeTheme.primaryButtonText) // Toolbar-Textfarbe
                     .fontWeight(.semibold)
                 }
             }
         }
-        .accentColor(.coffeeBrown)
+        .accentColor(CoffeeTheme.primaryButton) // Akzentfarbe der Navigation
     }
 }
 
@@ -208,7 +208,7 @@ struct BeanInputRow: View {
                 .foregroundColor(color)
                 .frame(width: 20)
             TextField(label, text: $text)
-                .foregroundColor(.darkCoffeeBrown)
+                .foregroundColor(CoffeeTheme.primaryText) // Primäre Textfarbe
         }
     }
 }

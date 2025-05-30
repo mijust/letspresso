@@ -16,46 +16,46 @@
 import SwiftUI
 
 extension Color {
-    // Hauptfarben basierend auf dem Logo
-    static let coffeeBrown = Color(red: 0.55, green: 0.27, blue: 0.07) // #8B4513
-    static let lightCoffeeBrown = Color(red: 0.72, green: 0.45, blue: 0.20) // #B8733D
-    static let darkCoffeeBrown = Color(red: 0.40, green: 0.20, blue: 0.05) // #66330D
-    static let creamBackground = Color(red: 0.96, green: 0.96, blue: 0.86) // #F5F5DC
-    static let warmWhite = Color(red: 0.98, green: 0.97, blue: 0.94) // #FAF7F0
-    
-    // Akzentfarben für verschiedene Zustände
-    static let espressoGold = Color(red: 0.85, green: 0.65, blue: 0.13) // #D9A521
-    static let steamWhite = Color(red: 0.95, green: 0.95, blue: 0.95) // #F2F2F2
-    static let beanGreen = Color(red: 0.34, green: 0.55, blue: 0.34) // #578C57
-    
-    // Bewertungsfarben
-    static let ratingGold = Color(red: 1.0, green: 0.84, blue: 0.0) // #FFD700
-    static let positiveGreen = Color(red: 0.40, green: 0.70, blue: 0.40) // #66B366
-    static let warningOrange = Color(red: 0.90, green: 0.60, blue: 0.20) // #E6992D
-    static let negativeRed = Color(red: 0.80, green: 0.40, blue: 0.40) // #CC6666
+    // Primary colors from the app icon
+    static let primaryDarkBrown = Color(red: 0.35, green: 0.18, blue: 0.08) // A deep, rich brown from the bean in the icon
+    static let backgroundCream = Color(red: 0.96, green: 0.95, blue: 0.92) // The light, warm background from the icon
+
+    // Supporting browns for depth and hierarchy
+    static let mediumBrown = Color(red: 0.50, green: 0.30, blue: 0.15) // A slightly lighter brown for contrast
+    static let lightBrown = Color(red: 0.65, green: 0.45, blue: 0.25) // Even lighter, for subtle accents
+
+    // Accent colors - chosen for modern vibrancy and contrast
+    static let accentGold = Color(red: 0.85, green: 0.65, blue: 0.13) // Keeping a refined gold for highlights (similar to espressoGold)
+    static let accentGreen = Color(red: 0.30, green: 0.60, blue: 0.30) // A fresh, muted green (similar to beanGreen but slightly more refined)
+    static let accentBlue = Color(red: 0.25, green: 0.55, blue: 0.80) // A soft, modern blue for specific interactive elements
+
+    // Status colors - refined versions
+    static let successGreen = Color(red: 0.30, green: 0.70, blue: 0.30) // For positive feedback
+    static let warningOrange = Color(red: 0.90, green: 0.60, blue: 0.20) // For warnings (kept similar as it's effective)
+    static let errorRed = Color(red: 0.80, green: 0.30, blue: 0.30) // For errors
 }
 
-// Theme für die App
+// Theme for the App
 struct CoffeeTheme {
     // Primäre Buttons
-    static let primaryButton = Color.coffeeBrown
-    static let primaryButtonText = Color.warmWhite
+    static let primaryButton = Color.primaryDarkBrown
+    static let primaryButtonText = Color.backgroundCream
     
     // Sekundäre Buttons
-    static let secondaryButton = Color.lightCoffeeBrown
-    static let secondaryButtonText = Color.warmWhite
+    static let secondaryButton = Color.mediumBrown
+    static let secondaryButtonText = Color.backgroundCream
     
     // Hintergründe
-    static let primaryBackground = Color.warmWhite
-    static let cardBackground = Color.creamBackground
+    static let primaryBackground = Color.backgroundCream
+    static let cardBackground = Color.white.opacity(0.85) // A very subtle white with transparency for a sleek overlay effect
     
     // Text
-    static let primaryText = Color.darkCoffeeBrown
-    static let secondaryText = Color.coffeeBrown
+    static let primaryText = Color.primaryDarkBrown
+    static let secondaryText = Color.mediumBrown
     
     // Akzente
-    static let accent = Color.espressoGold
-    static let success = Color.positiveGreen
+    static let accent = Color.accentGold
+    static let success = Color.successGreen
     static let warning = Color.warningOrange
-    static let error = Color.negativeRed
+    static let error = Color.errorRed
 }
