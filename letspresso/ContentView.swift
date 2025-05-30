@@ -8,13 +8,13 @@ struct ContentView: View {
         TabView(selection: $selectedTab) {
             BeansListView()
                 .tabItem {
-                    Label("Bohnen", systemImage: "leaf.fill")
+                    Label("Beans", systemImage: "leaf.fill")
                 }
                 .tag(0)
             
             BrewsListView()
                 .tabItem {
-                    Label("Brühungen", systemImage: "cup.and.saucer.fill")
+                    Label("Brews", systemImage: "cup.and.saucer.fill")
                 }
                 .tag(1)
             
@@ -26,7 +26,7 @@ struct ContentView: View {
             
             StatsView()
                 .tabItem {
-                    Label("Statistik", systemImage: "chart.bar.fill")
+                    Label("Stats", systemImage: "chart.bar.fill")
                 }
                 .tag(3)
         }
