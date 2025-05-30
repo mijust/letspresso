@@ -1,3 +1,10 @@
+//
+//  ContentView.swift
+//  letspresso
+//
+//  Created by Michael on 30.05.25.
+//
+
 import SwiftUI
 
 struct ContentView: View {
@@ -30,5 +37,7 @@ struct ContentView: View {
                 }
                 .tag(3)
         }
+        .accentColor(.coffeeBrown) // Tab-Auswahl Farbe
+        .background(Color.warmWhite)
     }
 }
