@@ -1,61 +1,34 @@
-//
-//  ContentView.swift
-//  letspresso
-//
-//  Created by Michael on 30.05.25.
-//
-
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @State private var selectedTab = 0
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        TabView(selection: $selectedTab) {
+            BeansListView()
+                .tabItem {
+                    Label("Bohnen", systemImage: "leaf.fill")
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                .tag(0)
+            
+            BrewsListView()
+                .tabItem {
+                    Label("Brühungen", systemImage: "cup.and.saucer.fill")
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                .tag(1)
+            
+            TimerView()
+                .tabItem {
+                    Label("Timer", systemImage: "timer")
                 }
-            }
-        } detail: {
-            Text("Select an item")
+                .tag(2)
+            
+            StatsView()
+                .tabItem {
+                    Label("Statistik", systemImage: "chart.bar.fill")
+                }
+                .tag(3)
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
